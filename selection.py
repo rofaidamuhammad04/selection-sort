@@ -1,49 +1,25 @@
-def merge (a,p,q,r):
-    n1=q-p+1
-    n2=r-q
+#include <stdio.h>
 
-    L=[0]*(n1)
-    R=[0]*(n2)
+void selectionSort(int arr[], int n) {
+    int i, j, min_idx;
+    for (i = 0; i < n-1; i++) {
+        min_idx = i;
+        for (j = i+1; j < n; j++)
+            if (arr[j] < arr[min_idx])
+                min_idx = j;
+        // Swap the found minimum element with the first element
+        int temp = arr[min_idx];
+        arr[min_idx] = arr[i];
+        arr[i] = temp;
+    }
+}
 
-    for i in range(0,n1):
-        L[i]=a[p+i]
-    
-    for j in range (0,n2):
-        R[j]=a[q+ j+1]
-    
-    i=0
-    j=0
-    k=p
-
-    while i<n1 and j<n2:
-        if L[i]<=R[j]:
-            a[k]=L[i]
-            i+=1
-        else:
-            a[k]=R[j]
-            j+=1
-        k+=1
-    
-    while i<n1:
-        a[k]=L[i]
-        i+=1
-        k+=1
-
-    while j<n2:
-        a[k]=R[j]
-        j+=1
-        k+=1
-
-def mergeSort(a,p,r):
-    if p<r:
-        q=p+(r-p)//2
-        mergeSort(a,p,q)
-        mergeSort(a,q+1,r)
-        merge(a,p,q,r)
-
-a=[5,4,3,8,4]
-n=len(a)
-print(a)
-print('\n')
-mergeSort(a,0,n-1)
-print(a)
+int main() {
+    int arr[] = {6, 3, 8, 12, 9};
+    int n = sizeof(arr);
+    selectionSort(arr, n);
+    printf("Sorted array: \n");
+    for (int i = 0; i < n; i++)
+        printf("%d ", arr[i]);
+    return 0;
+}
